@@ -5,27 +5,21 @@ namespace Code.Player
 {
     public class PlayerPhysics : MonoBehaviour
     {
-        public BoxCollider2D Collider { get; private set; }
-        public Rigidbody2D Rigidbody2D { get; private set; }
+        public BoxCollider2D _Collider { get; private set; }
+        public Rigidbody2D _Rigidbody2D { get; private set; }
+        public Vector2 velocity;
+
 
         private void Awake()
         {
-            Collider = GetComponent<BoxCollider2D>();
-            Rigidbody2D = GetComponent<Rigidbody2D>();
+            _Collider = GetComponent<BoxCollider2D>();
+            _Rigidbody2D = GetComponent<Rigidbody2D>();
+            velocity = Vector2.zero;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            if (Input.GetAxis("Horizontal") > 0)
-            {
-                Rigidbody2D.velocity = Vector2.right  * 2;
-            }
-            
-        }
-
-        private void OnCollisionEnter2D(Collision2D col)
-        {
-            Debug.Log("In");
+            _Rigidbody2D.MovePosition(_Rigidbody2D.position + velocity);
         }
     }
 }
